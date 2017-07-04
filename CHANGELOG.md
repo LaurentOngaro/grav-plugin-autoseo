@@ -1,3 +1,8 @@
+# v1.0.2
+## 07/04/2017
+1. [](#bugfix)
+    * rename keywords.php to keyword.php
+
 # v1.0.1
 ## 07/04/2017
 1. [](#improved)
