@@ -88,4 +88,4 @@ Please send any comments or bug reports to the plugin's issue tracker.
 
 ### Authors
 
-`AutoSeo` is developed and maintained by Laurent Ongaro and it is based on Grav Seo Plugin by Gert Sallaerts.
+`AutoSeo` is developed and maintained by Laurent Ongaro.
