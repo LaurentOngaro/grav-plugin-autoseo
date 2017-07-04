@@ -1,9 +1,9 @@
 # [Grav](http://getgrav.org) AutoSEO
 
-AutoSEO is a plugin for Grav with which you can fill automatically the description and keywords metadata of a page using its content.
+AutoSEO is a plugin for Grav with which you can fill automatically the description and keyword metadata of a page using its content.
 
-If the plugin is enabled and **the description and keywords metadata of the page are not manually filled** (i.e. the page headers contains some metadata fields),
-the plugin will use the first words of the page content to fill the description metadata and its categories and tags to fill the keywords metadata.
+If the plugin is enabled and **the description and keyword metadata of the page are not manually filled** (i.e. the page headers contains some metadata fields),
+the plugin will use the first words of the page content to fill the description metadata and its categories and tags to fill the keyword metadata.
 
 ## Installation
 
@@ -26,9 +26,9 @@ enabled: true # lets you turn the plugin off and on
 description:
   enabled: true # lets you turn the plugin off and on for the description metadata only
   length: 30 # maximal count of words that will be used to fill the description metadata.
-keywords:
-  enabled: true # lets you turn the plugin off and on for the keywords metadata only
-  length: 20 # maximal count of words that will be used to fill the keywords metadata.
+keyword:
+  enabled: true # lets you turn the plugin off and on for the keyword metadata only
+  length: 20 # maximal count of words that will be used to fill the keyword metadata.
 ```
 
   * The first `enabled` field lets you turn the plugin on and off.
@@ -54,7 +54,7 @@ autoseo:
   description:
     enabled: true
     length: 10
-  keywords:
+  keyword:
     enabled: true
     length: 10
 ```
@@ -78,7 +78,7 @@ To limit the impact on performance, **the content analyzed will always be trunca
 
 `AutoSeo` will make a few cleaning but won't check the content used to auto fill the metadata.
 So be sure that the first words of your content (the summary) will be correct to be used as a description.
-In a same way, check that the tags and categories of the page are OK to be used as keywords.
+In a same way, check that the tags and categories of the page are OK to be used as keyword.
 
 ### Bugs And TODO
 

@@ -5,7 +5,7 @@ namespace AutoSeo\Metadata;
 use Grav\Common\Plugin;
 use RocketTheme\Toolbox\Event\Event;
 
-class Keywords extends Plugin
+class Keyword extends Plugin
 {
 	public static function getSubscribedEvents() {
 		return [
@@ -28,7 +28,7 @@ class Keywords extends Plugin
 		if (isset($available['header']['metadata']['keyword'])) {
 			$pageMetadataContent=$available['header']['metadata']['keyword'];
 		} else {
-			$length = $this->config->get('plugins.autoseo.keywords.length');
+			$length = $this->config->get('plugins.autoseo.keyword.length');
 			if ($length <=1 ) $length=20; 
 
 			// we create a keyword list using the page tags and categories
@@ -47,7 +47,6 @@ class Keywords extends Plugin
 			$autoContent = transliterator_transliterate('Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove', $autoContent);
 			$pageMetadataContent = $autoContent;
 		}
-dump($pageMetadataContent);
 
 		if (!empty($pageMetadataContent))
 			$metadata['keyword'] = [ 'property' => 'keyword', 'content' => $pageMetadataContent];

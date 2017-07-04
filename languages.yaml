@@ -9,10 +9,10 @@ en:
       DESCRIPTION_ENABLED_HELP: Lets you turn the plugin ON and OFF for the description metadata only.
       DESCRIPTION_LENGTH_LABEL: Maximum word count for description
       DESCRIPTION_LENGTH_HELP: The maximum count of words that will be used to fill the description metadata.
-      KEYWORDS_ENABLED_LABEL: Auto fill for keywords
-      KEYWORDS_ENABLED_HELP: Lets you turn the plugin ON and OFF for the keywords metadata only.
-      KEYWORDS_LENGTH_LABEL: Maximum word count for keywords metadata.
-      KEYWORDS_LENGTH_HELP: The maximum count of words that will be used to fill the keywords metadata.
+      KEYWORD_ENABLED_LABEL: Auto fill for keyword
+      KEYWORD_ENABLED_HELP: Lets you turn the plugin ON and OFF for the keyword metadata only.
+      KEYWORD_LENGTH_LABEL: Maximum word count for keyword metadata.
+      KEYWORD_LENGTH_HELP: The maximum count of words that will be used to fill the keyword metadata.
       PLUGIN_DEPENDENCY_FAILED: Auto SEO Plugin failed to load. Composer dependencies not met.
 
 # French
@@ -26,8 +26,8 @@ fr:
       DESCRIPTION_ENABLED_HELP: Permet de mettre le plugin ON et OFF pour la métadonnée "Description" uniquement.
       DESCRIPTION_LENGTH_LABEL: nombre maximal de mots pour la description
       DESCRIPTION_LENGTH_HELP: le nombre maximum de mots qui seront utilisés pour remplir la métadonnée "Description".
-      KEYWORDS_ENABLED_LABEL: Remplissage automatique pour les mots clés
-      KEYWORDS_ENABLED_HELP: Permet de mettre le plugin ON et OFF pour la métadonnée "Keywords" uniquement.
-      KEYWORDS_LENGTH_LABEL: Nombre maximal de mots pour la métadonnée "Keywords".
-      KEYWORDS_LENGTH_HELP: Le nombre maximum de mots qui seront utilisés pour remplir la métadonnée "Keywords".
+      KEYWORD_ENABLED_LABEL: Remplissage automatique pour les mots clés
+      KEYWORD_ENABLED_HELP: Permet de mettre le plugin ON et OFF pour la métadonnée "Keyword" uniquement.
+      KEYWORD_LENGTH_LABEL: Nombre maximal de mots pour la métadonnée "Keyword".
+      KEYWORD_LENGTH_HELP: Le nombre maximum de mots qui seront utilisés pour remplir la métadonnée "Keyword".
       PLUGIN_DEPENDENCY_FAILED: le plug-in Auto SEO n'a pas pu être chargé. Les dépendances de Composer ne sont pas remplies.

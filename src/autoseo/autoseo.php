@@ -12,8 +12,8 @@ class AutoSeo extends Plugin
 				$this->grav['events']->addSubscriber(new Metadata\Description("AutoSeoDescription",$this->grav, $this->config));
 	    }
 
-	    if ($this->config->get('plugins.autoseo.keywords.enabled')) {
-				$this->grav['events']->addSubscriber(new Metadata\Keywords("AutoSeoKeywords",$this->grav, $this->config));
+	    if ($this->config->get('plugins.autoseo.keyword.enabled')) {
+				$this->grav['events']->addSubscriber(new Metadata\Keyword("AutoSeoKeyword",$this->grav, $this->config));
 	    }
 
 
