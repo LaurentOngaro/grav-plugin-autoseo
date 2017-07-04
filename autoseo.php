@@ -14,10 +14,16 @@ class AutoSeoPlugin extends Plugin
 
 	public function onPluginsInitialized()
 	{
+		// deactivate plugin in admin 
+		if ($this->isAdmin()) {
+			$this->active = false;
+			return;
+		}
+
 		$autoload = __DIR__ . '/vendor/autoload.php';
 		
 		if (!is_file($autoload)) {
-			$this->grav['logger']->error('Auto SEO Plugin failed to load. Composer dependencies not met.');
+			$this->grav['logger']->error(PLUGINS.AUTO_SEO.PLUGIN_DEPENDENCY_FAILED);
 		}
 
 		require_once $autoload;

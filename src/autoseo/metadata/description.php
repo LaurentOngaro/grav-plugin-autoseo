@@ -10,11 +10,11 @@ class Description extends Plugin
 	public static function getSubscribedEvents() {
 
 		return [
-			'onPageProcessed' => ['onPageProcessed', 0],
+			'onPageContentProcessed' => ['onPageContentProcessed', 0],
 		];
 	}
 
-	public function onPageProcessed(Event $e)
+	public function onPageContentProcessed(Event $e)
 	{
 		$page = $e['page'];
 
@@ -36,13 +36,18 @@ class Description extends Plugin
 		} else {
 			// we create a description using the page content
 			$autoContent = $page->rawMarkdown();
-
+			// limit the content size to reduce the performance impact
 			$autoContent = substr($autoContent,0, 1000 );
+			// remove some annoying characters
 			$autoContent = str_replace("\n",' ',$autoContent);
 			$autoContent = str_replace("&nbsp;",' ',$autoContent);
 			$autoContent = str_replace('"',"'",$autoContent);
 			$autoContent = trim($autoContent);
-			$autoContent = preg_replace('/[^A-Za-z0-9\-]/', '', $autoContent); // Removes special chars.
+			// Removes special chars.
+			$autoContent = transliterator_transliterate('Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove', $autoContent);
+			// remove headers
+			$autoContent = preg_replace('/[#]+ /', '', $autoContent); 
+	    // truncate the content to the number of words set in config
 	    $autoContent = preg_replace('/((\w+\W*){'.$length.'}(\w+))(.*)/', '${1}', $autoContent);    
 
 			$pageMetadataContent = $autoContent;

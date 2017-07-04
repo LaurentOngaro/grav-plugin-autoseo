@@ -9,11 +9,11 @@ class Keywords extends Plugin
 {
 	public static function getSubscribedEvents() {
 		return [
-			'onPageProcessed' => ['onPageProcessed', 0],
+			'onPageContentProcessed' => ['onPageContentProcessed', 0],
 		];
 	}
 
-	public function onPageProcessed(Event $e)
+	public function onPageContentProcessed(Event $e)
 	{
 		$page = $e['page'];
 
