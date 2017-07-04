@@ -23,7 +23,7 @@ class Keywords extends Plugin
 		];
 
 		$metadata = $page->metadata();
-		$length = $this->config->get('plugins.autoseo.metadata.keywords.length');
+		$length = $this->config->get('plugins.autoseo.keywords.length');
 
 		if (empty($metadata['keywords']))
 			$metadata['keywords'] = [ 'property' => 'keywords', 'content' => $available['page']['metadata']['keywords'] ];

@@ -22,14 +22,13 @@ Here is the default configuration and an explanation of available options:
 `autoseo.yaml:`
 
 ```yaml
-enabled: true # lets you turn the plugin on and off
-metadata:
-  description:
-    enabled: true # lets you turn the plugin on and off for the description metadata only
-    length: 30 # maximal count of words that will be used to fill the description metadata.
-  keywords:
-    enabled: true # lets you turn the plugin on and off for the keywords metadata only
-    length: 20 # maximal count of words that will be used to fill the keywords metadata.
+enabled: true # lets you turn the plugin off and on
+description:
+  enabled: true # lets you turn the plugin off and on for the description metadata only
+  length: 30 # maximal count of words that will be used to fill the description metadata.
+keywords:
+  enabled: true # lets you turn the plugin off and on for the keywords metadata only
+  length: 20 # maximal count of words that will be used to fill the keywords metadata.
 ```
 
   * The first `enabled` field lets you turn the plugin on and off.
@@ -52,13 +51,12 @@ Remember you can also override the general plugin settings for a specific page b
 ```yaml
 autoseo:
   enabled: true
-  metadata:
-    description:
-      enabled: true
-      length: 10
-    keywords:
-      enabled: true
-      length: 10
+  description:
+    enabled: true
+    length: 10
+  keywords:
+    enabled: true
+    length: 10
 ```
 
 will change the description and keyword lengths to 10 words for these page only.

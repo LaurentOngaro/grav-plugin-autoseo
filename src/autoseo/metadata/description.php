@@ -27,7 +27,7 @@ class Description extends Plugin
 		$siteMetadataContent=$metadata['description'];
 
 
-		$length = $this->config->get('plugins.autoseo.metadata.description.length');
+		$length = $this->config->get('plugins.autoseo.description.length');
 		
 		if ($length <=1 ) $length=20; 
 
@@ -36,12 +36,13 @@ class Description extends Plugin
 		} else {
 			// we create a description using the page content
 			$autoContent = $page->rawMarkdown();
+
 			$autoContent = substr($autoContent,0, 1000 );
 			$autoContent = str_replace("\n",' ',$autoContent);
 			$autoContent = str_replace("&nbsp;",' ',$autoContent);
 			$autoContent = str_replace('"',"'",$autoContent);
 			$autoContent = trim($autoContent);
-			$autoContent=preg_replace('/[^A-Za-z0-9\-]/', '', $autoContent); // Removes special chars.
+			$autoContent = preg_replace('/[^A-Za-z0-9\-]/', '', $autoContent); // Removes special chars.
 	    $autoContent = preg_replace('/((\w+\W*){'.$length.'}(\w+))(.*)/', '${1}', $autoContent);    
 
 			$pageMetadataContent = $autoContent;
