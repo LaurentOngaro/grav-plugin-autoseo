@@ -67,6 +67,13 @@ There's not much to do with this plugin, simply install, enabled it and check it
 
 No need to do anything else.
 
+### Demo
+
+The plugin is installed and enabled on the following blog : [http://www.gamecoderblog.com](http://www.gamecoderblog.com).
+
+To see it in action, you have to inspect the meta of the page code source.
+_(Use a page other than the home page, because the metadata used in it are those set in the blog configuration)_
+
 ### Performances
 
 As each page must be analyzed and its content filtered by the plugins, the impact on performance can be important when first access to a page.
@@ -88,4 +95,4 @@ Please send any comments or bug reports to the plugin's issue tracker.
 
 ### Authors
 
-`AutoSeo` is developed and maintained by Laurent Ongaro and it is based on Grav Seo Plugin by Gert Sallaerts.
+`AutoSeo` is developed and maintained by Laurent Ongaro.
