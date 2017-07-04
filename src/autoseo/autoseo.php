@@ -13,7 +13,7 @@ class AutoSeo extends Plugin
 	    }
 
 	    if ($this->config->get('plugins.autoseo.keywords.enabled')) {
-//TOREMOVE				$this->grav['events']->addSubscriber(new Metadata\Keywords("AutoSeoKeywords",$this->grav, $this->config));
+				$this->grav['events']->addSubscriber(new Metadata\Keywords("AutoSeoKeywords",$this->grav, $this->config));
 	    }
 
 

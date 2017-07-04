@@ -8,7 +8,6 @@ use RocketTheme\Toolbox\Event\Event;
 class Description extends Plugin
 {
 	public static function getSubscribedEvents() {
-
 		return [
 			'onPageContentProcessed' => ['onPageContentProcessed', 0],
 		];
@@ -19,21 +18,19 @@ class Description extends Plugin
 		$page = $e['page'];
 
 		$available = [
-			'page' => (array) $page->header(),
+			'header' => (array) $page->header(),
 			'site' => $this->config->get('site')
 		];
 
 		$metadata = $page->metadata();
-		$siteMetadataContent=$metadata['description'];
+		if (array_key_exists('description', $metadata)) { $siteMetadataContent = $metadata['description']; } else { $siteMetadataContent = ''; }
 
-
-		$length = $this->config->get('plugins.autoseo.description.length');
-		
-		if ($length <=1 ) $length=20; 
-
-		if (isset($available['page']['metadata']['description'])) {
-			$pageMetadataContent=$available['page']['metadata']['description'];
+		if (isset($available['header']['metadata']['description'])) {
+			$pageMetadataContent=$available['header']['metadata']['description'];
 		} else {
+			$length = $this->config->get('plugins.autoseo.description.length');		
+			if ($length <=1 ) $length=20; 
+
 			// we create a description using the page content
 			$autoContent = $page->rawMarkdown();
 			// limit the content size to reduce the performance impact

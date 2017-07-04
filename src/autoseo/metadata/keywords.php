@@ -18,15 +18,39 @@ class Keywords extends Plugin
 		$page = $e['page'];
 
 		$available = [
-			'page' => (array) $page->header(),
+			'header' => (array) $page->header(),
 			'site' => $this->config->get('site')
 		];
 
 		$metadata = $page->metadata();
-		$length = $this->config->get('plugins.autoseo.keywords.length');
+		if (array_key_exists('keyword', $metadata)) { $siteMetadataContent = $metadata['keyword']; } else { $siteMetadataContent = ''; }
 
-		if (empty($metadata['keywords']))
-			$metadata['keywords'] = [ 'property' => 'keywords', 'content' => $available['page']['metadata']['keywords'] ];
+		if (isset($available['header']['metadata']['keyword'])) {
+			$pageMetadataContent=$available['header']['metadata']['keyword'];
+		} else {
+			$length = $this->config->get('plugins.autoseo.keywords.length');
+			if ($length <=1 ) $length=20; 
+
+			// we create a keyword list using the page tags and categories
+			if (array_key_exists( 'category', $this->grav['page']->taxonomy() )) { $categories = $this->grav['page']->taxonomy()['category']; } else { $categories = ''; }
+			if (array_key_exists( 'tag', $this->grav['page']->taxonomy() )) { $tags = $this->grav['page']->taxonomy()['tag']; } else { $tags = ''; }
+
+			$autoContent = array_merge ($categories, $tags) ;
+			$autoContent = array_unique ($autoContent);
+			$autoContent = array_slice($autoContent, 0, $length);
+			$autoContent = join(',',$autoContent);
+			// remove some annoying characters
+			$autoContent = str_replace("&nbsp;",' ',$autoContent);
+			$autoContent = str_replace('"',"'",$autoContent);
+			$autoContent = trim($autoContent);
+			// Removes special chars.
+			$autoContent = transliterator_transliterate('Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove', $autoContent);
+			$pageMetadataContent = $autoContent;
+		}
+dump($pageMetadataContent);
+
+		if (!empty($pageMetadataContent))
+			$metadata['keyword'] = [ 'property' => 'keyword', 'content' => $pageMetadataContent];
 
 		$page->metadata($metadata);
 	}
