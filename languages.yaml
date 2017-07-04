@@ -1,0 +1,33 @@
+# English
+en:
+  PLUGINS:
+    AUTO_SEO:
+      GLOBAL_CONFIG: Global configuration
+      PLUGIN_STATUS: Plugin status
+      DEFAULT_CONFIG: Default values for the plugin configuration
+      DESCRIPTION_ENABLED_LABEL: Auto fill for description
+      DESCRIPTION_ENABLED_HELP: Lets you turn the plugin ON and OFF for the description metadata only.
+      DESCRIPTION_LENGTH_LABEL: Maximum word count for description
+      DESCRIPTION_LENGTH_HELP: The maximum count of words that will be used to fill the description metadata.
+      KEYWORDS_ENABLED_LABEL: Auto fill for keywords
+      KEYWORDS_ENABLED_HELP: Lets you turn the plugin ON and OFF for the keywords metadata only.
+      KEYWORDS_LENGTH_LABEL: Maximum word count for keywords metadata.
+      KEYWORDS_LENGTH_HELP: The maximum count of words that will be used to fill the keywords metadata.
+      PLUGIN_DEPENDENCY_FAILED: Auto SEO Plugin failed to load. Composer dependencies not met.
+
+# French
+fr:
+  PLUGINS:
+    AUTO_SEO:
+      GLOBAL_CONFIG: Configuration globale
+      PLUGIN_STATUS: Etat du plugin
+      DEFAULT_CONFIG: Valeurs par défaut pour la configuration du plugin
+      DESCRIPTION_ENABLED_LABEL: Remplissage automatique pour la description
+      DESCRIPTION_ENABLED_HELP: Permet de mettre le plugin ON et OFF pour la métadonnée "Description" uniquement.
+      DESCRIPTION_LENGTH_LABEL: nombre maximal de mots pour la description
+      DESCRIPTION_LENGTH_HELP: le nombre maximum de mots qui seront utilisés pour remplir la métadonnée "Description".
+      KEYWORDS_ENABLED_LABEL: Remplissage automatique pour les mots clés
+      KEYWORDS_ENABLED_HELP: Permet de mettre le plugin ON et OFF pour la métadonnée "Keywords" uniquement.
+      KEYWORDS_LENGTH_LABEL: Nombre maximal de mots pour la métadonnée "Keywords".
+      KEYWORDS_LENGTH_HELP: Le nombre maximum de mots qui seront utilisés pour remplir la métadonnée "Keywords".
+      PLUGIN_DEPENDENCY_FAILED: le plug-in Auto SEO n'a pas pu être chargé. Les dépendances de Composer ne sont pas remplies.
