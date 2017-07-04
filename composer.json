@@ -1,6 +1,6 @@
 {
     "name": "steamlead/grav-plugin-autoseo",
-    "description": "Improved SEO plugin for Grav CMS",
+    "description": "Auto Fill SEO plugin for Grav CMS",
     "license": "MIT",
     "authors": [
         {
