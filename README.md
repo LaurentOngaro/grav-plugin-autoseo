@@ -84,12 +84,7 @@ In a same way, check that the tags and categories of the page are OK to be used 
 
 Please send any comments or bug reports to the plugin's issue tracker.
 
-:warning:
-**IN THE CURRENT VERSION , auto fill of the keyword metadata is not yet implemented**
-
 #### TODO
-
-- Finish the keyword metadata implementation.
 
 ### Authors
 
