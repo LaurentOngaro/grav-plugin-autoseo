@@ -1,5 +1,5 @@
 name: Auto SEO
-version: 1.1.0
+version: 1.2.0
 description: Automatically fills the description and keyword metadata of a page using its content.
 icon: magic
 author:
@@ -44,8 +44,8 @@ form:
       fields:
           description.enabled:
             type: toggle
-            label: PLUGINS.AUTO_SEO.DESCRIPTION_ENABLED_LABEL
-            help: PLUGINS.AUTO_SEO.DESCRIPTION_ENABLED_HELP
+            label: PLUGINS.AUTO_SEO.DESCRIPTION.ENABLED_LABEL
+            help: PLUGINS.AUTO_SEO.DESCRIPTION.ENABLED_HELP
             highlight: 1
             default: 0
             options:
@@ -56,18 +56,17 @@ form:
           description.length:
             type: text
             size: x-small
-            label: PLUGINS.AUTO_SEO.DESCRIPTION_LENGTH_LABEL
-            help: PLUGINS.AUTO_SEO.DESCRIPTION_LENGTH_HELP
+            label: PLUGINS.AUTO_SEO.DESCRIPTION.LENGTH_LABEL
+            help: PLUGINS.AUTO_SEO.DESCRIPTION.LENGTH_HELP
             default: 30
             validate:
               type: number
               min: 2
               max: 50
-
           keyword.enabled:
             type: toggle
-            label: PLUGINS.AUTO_SEO.KEYWORD_ENABLED_LABEL
-            help: PLUGINS.AUTO_SEO.KEYWORD_ENABLED_HELP
+            label: PLUGINS.AUTO_SEO.KEYWORD.ENABLED_LABEL
+            help: PLUGINS.AUTO_SEO.KEYWORD.ENABLED_HELP
             highlight: 1
             default: 0
             options:
@@ -78,10 +77,32 @@ form:
           keyword.length:
             type: text
             size: x-small
-            label: PLUGINS.AUTO_SEO.KEYWORD_LENGTH_LABEL
-            help: PLUGINS.AUTO_SEO.KEYWORD_LENGTH_HELP
+            label: PLUGINS.AUTO_SEO.KEYWORD.LENGTH_LABEL
+            help: PLUGINS.AUTO_SEO.KEYWORD.LENGTH_HELP
             default: 20
             validate:
               type: number
               min: 2
               max: 30
+          facebook.enabled:
+            type: toggle
+            label: PLUGINS.AUTO_SEO.FACEBOOK.ENABLED_LABEL
+            help: PLUGINS.AUTO_SEO.FACEBOOK.ENABLED_HELP
+            highlight: 1
+            default: 0
+            options:
+              1: PLUGIN_ADMIN.ENABLED
+              0: PLUGIN_ADMIN.DISABLED
+            validate:
+              type: bool
+          twitter.enabled:
+            type: toggle
+            label: PLUGINS.AUTO_SEO.TWITTER.ENABLED_LABEL
+            help: PLUGINS.AUTO_SEO.TWITTER.ENABLED_HELP
+            highlight: 1
+            default: 0
+            options:
+              1: PLUGIN_ADMIN.ENABLED
+              0: PLUGIN_ADMIN.DISABLED
+            validate:
+              type: bool
