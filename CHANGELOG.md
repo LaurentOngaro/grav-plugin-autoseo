@@ -1,4 +1,10 @@
-# v1.2.3
+# v1.2.5
+## 07/27/2017
+
+1. [](#bugfix)
+    * fix version numbering in changelog
+
+# v1.2.4
 ## 07/27/2017
 
 1. [](#bugfix)
