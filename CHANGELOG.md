@@ -1,3 +1,25 @@
+# v1.2.2
+## 07/27/2017
+1. [](#improved)
+    * minor changes in config files
+		* update readme and changelog files
+
+# v1.2.1
+## 07/27/2017
+1. [](#improved)
+    * update readme file
+
+## 07/26/2017
+1. [](#improved)
+    * add metadata for Facebook Open Graph (thanks to Victor Rosset for the Social Meta Tags plugin source code I used for this part)
+    * add metadata for Twitter Cards Meta Tags (thanks to Victor Rosset for the Social Meta Tags plugin source code I used for this part)
+    * heavy code refactoring
+
+# v1.1.1
+## 07/04/2017
+1. [](#improved)
+    * update readme file
+
 # v1.1.0
 ## 07/04/2017
 1. [](#improved)

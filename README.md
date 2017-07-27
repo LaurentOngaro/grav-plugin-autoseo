@@ -1,9 +1,11 @@
 # [Grav](http://getgrav.org) AutoSEO
 
-AutoSEO is a plugin for Grav with which you can fill automatically the description and keyword metadata of a page using its content.
+Grav AutoSEO is a plugin for Grav with which you can fill automatically the description and keywords metadata of a page using its content.
+It also adds Facebook Open Graph metadata and Twitter Cards Meta Tags (**New** feature since the 1.2 version).
 
 If the plugin is enabled and **the description and keyword metadata of the page are not manually filled** (i.e. the page headers contains some metadata fields),
-the plugin will use the first words of the page content to fill the description metadata and its categories and tags to fill the keyword metadata.
+the plugin will use the first words of the page summary to fill the description and its categories and tags to fill the keyword metadata.
+Facebook and twitter metadata will also be filled if they are enabled in settings and not manually filled in the page header.
 
 ## Installation
 
@@ -22,13 +24,17 @@ Here is the default configuration and an explanation of available options:
 `autoseo.yaml:`
 
 ```yaml
-enabled: true # lets you turn the plugin off and on
+enabled: true # lets you turn the plugin off and on.
 description:
-  enabled: true # lets you turn the plugin off and on for the description metadata only
+  enabled: true # lets you turn the plugin off and on for the description metadata only.
   length: 30 # maximal count of words that will be used to fill the description metadata.
 keyword:
-  enabled: true # lets you turn the plugin off and on for the keyword metadata only
+  enabled: true # lets you turn the plugin off and on for the keyword metadata only.
   length: 20 # maximal count of words that will be used to fill the keyword metadata.
+facebook:
+  enabled: true # Lets you turn the plugin ON and OFF for the "Facebook Open Graph" metadata.
+twitter:
+  enabled: true # Lets you turn the plugin ON and OFF for the "Twitter Cards" metadata.
 ```
 
   * The first `enabled` field lets you turn the plugin on and off.
@@ -57,9 +63,13 @@ autoseo:
   keyword:
     enabled: true
     length: 10
+  facebook:
+    enabled: true
+  twitter:
+    enabled: false
 ```
 
-will change the description and keyword lengths to 10 words for these page only.
+will change the description and keyword lengths to 10 words for these page only, enable Facebook Open Graph metadata and disable Twitter Cards tags.
 
 ## Usage
 
@@ -72,7 +82,7 @@ No need to do anything else.
 The plugin is installed and enabled on the following blog : [http://www.gamecoderblog.com](http://www.gamecoderblog.com).
 
 To see it in action, you have to inspect the meta of the page code source.
-_(Use a page other than the home page, because the metadata used in it are those set in the blog configuration)_
+**(Use a page other than the home page, because the metadata used in it are those set in the blog configuration)**
 
 ### Performances
 
@@ -92,6 +102,8 @@ In a same way, check that the tags and categories of the page are OK to be used 
 Please send any comments or bug reports to the plugin's issue tracker.
 
 #### TODO
+
+* No new feature is planned for the moment.
 
 ### Authors
 
