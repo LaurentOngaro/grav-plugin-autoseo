@@ -1,3 +1,9 @@
+# v1.2.3
+## 07/27/2017
+1. [](#bugfix)
+    * fix a bug in changelog that prevents auto upgrading
+        * remove useless dependency
+
 # v1.2.2
 ## 07/27/2017
 1. [](#improved)
@@ -9,6 +15,7 @@
 1. [](#improved)
     * update readme file
 
+# v1.2.0
 ## 07/26/2017
 1. [](#improved)
     * add metadata for Facebook Open Graph (thanks to Victor Rosset for the Social Meta Tags plugin source code I used for this part)
