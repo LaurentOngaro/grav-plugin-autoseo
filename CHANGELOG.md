@@ -1,3 +1,9 @@
+# v1.2.6
+## 07/30/2017
+
+1. [](#bugfix)
+    * fix: plugin was not running as expected after the 1.3.1 grav update
+
 # v1.2.5
 ## 07/27/2017
 

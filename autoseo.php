@@ -29,7 +29,7 @@ class AutoSeoPlugin extends Plugin
             and $this->config->get('plugins.autoseo.enabled')
         ) {
             $this->enable([
-                'onPageContentRaw' => ['onPageContentRaw', 0]
+                'onPageInitialized' => ['onPageInitialized', 0]
             ]);
         }
     }
@@ -38,7 +38,7 @@ class AutoSeoPlugin extends Plugin
      * Add content after page content was read into the system.
      *
      */
-    public function onPageContentRaw()
+    public function onPageInitialized()
     {
         $page = $this->grav['page'];
     	$config = $this->mergeConfig($page);
@@ -64,12 +64,11 @@ class AutoSeoPlugin extends Plugin
         if ($updateKeyword) $meta = $this->getMetaKeywork($meta, $available, $config);
         if ($updateFacebook) $meta = $this->getFacebookMetatags ( $meta, $config, $cleanSummary, $cleanTitle);
         if ($updateTwitter) $meta = $this->getTwitterCardMetatags ( $meta, $config, $cleanSummary, $cleanTitle);
-
-        $page->metadata ( $meta ) ;
+        $page->metadata ($meta);
     }
     
     // PROCESS for the description metadata
-    private function getMetaDescription ( $meta, $available, $config, $cleanSummary ) {
+    private function getMetaDescription ($meta, $available, $config, $cleanSummary) {
         $page = $this->grav['page'];
         if (array_key_exists('description', $meta)) { $siteMetadataContent = $meta['description']; } else { $siteMetadataContent = ''; }
 
@@ -86,7 +85,7 @@ class AutoSeoPlugin extends Plugin
     }
     
     // PROCESS for the keyword metadata
-    private function getMetaKeywork ( $meta, $available, $config ) {
+    private function getMetaKeywork ($meta, $available, $config) {
         $page = $this->grav['page'];
         if (array_key_exists('keyword', $meta)) { $siteMetadataContent = $meta['keyword']; } else { $siteMetadataContent = ''; }
 
@@ -114,7 +113,7 @@ class AutoSeoPlugin extends Plugin
     }
 
     // PROCESS for the twitter metadata
-    private function getTwitterCardMetatags ( $meta, $config, $cleanSummary, $cleanTitle) {
+    private function getTwitterCardMetatags ($meta, $config, $cleanSummary, $cleanTitle) {
         $page = $this->grav['page'];
         if (!isset($meta['twitter:card'])) {
             $meta['twitter:card']['name']      = 'twitter:card';
@@ -232,7 +231,8 @@ class AutoSeoPlugin extends Plugin
                 $text = preg_replace ($regex, $replacement, $text);
             }
         }
-        $text=str_replace("\n", '', $text);
+        $text=str_replace(".\n", '.', $text);
+        $text=str_replace("\n", '.', $text);
         $text=str_replace('"', '', $text);
 
         return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
@@ -243,7 +243,7 @@ class AutoSeoPlugin extends Plugin
         $length = $config['description.length'];       
         if ($length <=1 ) $length=20; 
         // limit the content size to reduce the performance impact
-        $content = substr(strip_tags($page->summary()),0, 1000 );
+        $content = substr(strip_tags($page->content()),0, 1000 );
         $content = $this->sanitizeMarkdowns($content);
         // truncate the content to the number of words set in config
         $content = preg_replace('/((\w+\W*){'.$length.'}(\w+))(.*)/', '${1}', $content);    
