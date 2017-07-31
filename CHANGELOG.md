@@ -1,3 +1,14 @@
+# v1.3.0
+## 07/31/2017
+
+1. [](#bugfix)
+    * the metadata were not overridden if some of them were already set in the site settings
+    * the content was not used when its length in words was less than the value of the "length" settings
+    * rename the metadata "keyword" to "keywords" (its valid name !)
+2. [](#improved)
+    * code optimizations
+    * remove some code redundancies
+
 # v1.2.6
 ## 07/30/2017
 
@@ -39,9 +50,10 @@
 # v1.2.0
 ## 07/26/2017
 
-1. [](#improved)
+1. [](#new)
     * add metadata for Facebook Open Graph (thanks to Victor Rosset for the Social Meta Tags plugin source code I used for this part)
     * add metadata for Twitter Cards Meta Tags (thanks to Victor Rosset for the Social Meta Tags plugin source code I used for this part)
+2. [](#improved)
     * heavy code refactoring
 
 # v1.1.1
@@ -79,7 +91,7 @@
 
 1. [](#improved)
     * enable auto fill for keyword metadata
-1. [](#bugfix)
+2. [](#bugfix)
     * Fixed several issue before public release (see commit list for details)
 
 # v0.1.0

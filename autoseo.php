@@ -45,81 +45,113 @@ class AutoSeoPlugin extends Plugin
     	if ( !$config['enabled']) return;
 
         $updateDescription =  $config['description.enabled'];
-        $updateKeyword =  $config['keyword.enabled'];
+        $updatekeywords =  $config['keywords.enabled'];
         $updateFacebook =  $config['facebook.enabled'];
         $updateTwitter =  $config['twitter.enabled'];
-        if (!$updateDescription && !$updateKeyword && !$updateFacebook && !$updateTwitter) return
+        if (!$updateDescription && !$updatekeywords && !$updateFacebook && !$updateTwitter) return;
 
-        $page = $this->grav['page'];
-        $meta = $page->metadata(null);
-        $available = [
-            'header' => (array) $page->header(),
-            'site' => $this->config->get('site')
-        ];
+        $meta = $page->metadata();
 
-        $cleanSummary = $this->cleanContent ($page, $config); 
-        $cleanTitle = $this->cleanString ($page->title());
+        $metaSite = $this->config->get('site')['metadata'];
+        
+        // limit the content size to reduce the performance impact
+        $content = substr(strip_tags($page->content()),0, 1000 );
 
-        if ($updateDescription) $meta = $this->getMetaDescription($meta, $available, $config, $cleanSummary);
-        if ($updateKeyword) $meta = $this->getMetaKeywork($meta, $available, $config);
-        if ($updateFacebook) $meta = $this->getFacebookMetatags ( $meta, $config, $cleanSummary, $cleanTitle);
-        if ($updateTwitter) $meta = $this->getTwitterCardMetatags ( $meta, $config, $cleanSummary, $cleanTitle);
+        $cleanContent = $this->cleanText ($content, $config); // here because we don't want to make this call several times
+        $cleanTitle = $this->cleanString ($page->title()); // here because we don't want to make this call several times
+
+        if ($updateDescription) $meta = $this->getMetaDescription ($meta, $metaSite, $config, $cleanContent);
+        if ($updatekeywords) $meta = $this->getMetaKeywords ($meta, $metaSite, $config);
+        if ($updateFacebook) $meta = $this->getMetaOpenGraph ($meta, $metaSite, $config, $cleanContent, $cleanTitle);
+        if ($updateTwitter) $meta = $this->getMetaTwitter ($meta, $metaSite, $config, $cleanContent, $cleanTitle);
         $page->metadata ($meta);
     }
     
     // PROCESS for the description metadata
-    private function getMetaDescription ($meta, $available, $config, $cleanSummary) {
+    private function getMetaDescription ($meta, $metaSite, $config, $cleanContent) {
+
+        if (array_key_exists('description', $metaSite)) { $metaSiteContent =  htmlspecialchars($metaSite['description'], ENT_QUOTES, 'UTF-8'); } else { $metaSiteContent = ''; }
+        // if the page has a meta that is different from the default one, we return its value
+        if (!empty($meta['description']['content']) && $meta['description']['content'] != $metaSiteContent) return $meta;
+
+        $metaPageContent = $cleanContent;
+
+        if (empty($metaPageContent)) $metaPageContent = $metaSiteContent;
+
+        $meta['description'] = [ 'property' => 'description', 'content' => $metaPageContent];
+        return $meta;
+    }
+    
+    // PROCESS for the keywords metadata
+    private function getMetaKeywords ($meta, $metaSite, $config) {
         $page = $this->grav['page'];
-        if (array_key_exists('description', $meta)) { $siteMetadataContent = $meta['description']; } else { $siteMetadataContent = ''; }
 
-        if (isset($available['header']['metadata']['description'])) {
-            $pageMetadataContent=$available['header']['metadata']['description'];
-        } else {
+        if (array_key_exists('keywords', $metaSite)) { $metaSiteContent =  htmlspecialchars($metaSite['keywords'], ENT_QUOTES, 'UTF-8'); } else { $metaSiteContent = ''; }
 
-            $pageMetadataContent = $cleanSummary;
+        // if the page has a meta that is different from the default one, we return its value
+        if (!empty($meta['keywords']['content']) && $meta['keywords']['content'] != $metaSiteContent) return $meta;
+        $length = $config['keywords.length'];
+        if ($length <=1 ) $length=20; 
+
+        // we create a keywords list using the page tags and categories
+        if (array_key_exists( 'category', $page->taxonomy() )) { $categories = $page->taxonomy()['category']; } else { $categories = []; }
+        if (array_key_exists( 'tag', $page->taxonomy() )) { $tags = $page->taxonomy()['tag']; } else { $tags = []; }
+
+        $content = array_merge ($categories, $tags) ;
+        $content = array_unique ($content);
+        $content = array_slice($content, 0, $length);
+        $content = join(',',$content);
+        $content = $this->cleanString($content);
+        $metaPageContent = $content;
+        if (empty($metaPageContent)) $metaPageContent = $metaSiteContent;
+
+        $meta['keywords'] = [ 'property' => 'keywords', 'content' => $metaPageContent];
+        return $meta;
+    }
+
+    // PROCESS for the OpenGraph metadata
+    private function getMetaOpenGraph ($meta, $metaSite, $config, $cleanContent, $cleanTitle) {
+        $page = $this->grav['page'];        
+
+        $meta['og:sitename']['name']        = 'og:sitename';
+        $meta['og:sitename']['property']    = 'og:sitename';
+        $meta['og:sitename']['content']     = $this->config->get('site.title');
+        $meta['og:title']['name']           = 'og:title';
+        $meta['og:title']['property']       = 'og:title';
+        $meta['og:title']['content']        = $cleanTitle;
+        $meta['og:type']['name']            = 'og:type';
+        $meta['og:type']['property']        = 'og:type';
+        $meta['og:type']['content']         = 'article';
+        $meta['og:url']['name']             = 'og:url';
+        $meta['og:url']['property']         = 'og:url';
+        $meta['og:url']['content']          = $this->grav['uri']->url(true);
+        $meta['og:description']['name']     = 'og:description';
+        $meta['og:description']['property'] = 'og:description';
+        if (empty($cleanContent)) $cleanContent = $meta['description']['content'];
+        else {
+            if (array_key_exists('description', $metaSite)) { $metaSiteContent =  htmlspecialchars($metaSite['description'], ENT_QUOTES, 'UTF-8'); } else { $metaSiteContent = ''; }
+            if ($meta['description']['content'] != $metaSiteContent) $cleanContent = $meta['description']['content'];
         }
-        if (!empty($pageMetadataContent)) {
-            $meta['description'] = [ 'property' => 'description', 'content' => $pageMetadataContent];
+
+        $meta['og:description']['content']  = $cleanContent; 
+
+        if (!empty($page->value('media.image'))) {
+            $images = $page->media()->images();
+            $image  = array_shift($images);
+            $meta['og:image']['name']      = 'og:image';
+            $meta['og:image']['property']  = 'og:image';
+            $meta['og:image']['content']   = $this->grav['uri']->base() . $image->url();
         }
         return $meta;
     }
     
-    // PROCESS for the keyword metadata
-    private function getMetaKeywork ($meta, $available, $config) {
-        $page = $this->grav['page'];
-        if (array_key_exists('keyword', $meta)) { $siteMetadataContent = $meta['keyword']; } else { $siteMetadataContent = ''; }
-
-        if (isset($available['header']['metadata']['keyword'])) {
-            $pageMetadataContent=$available['header']['metadata']['keyword'];
-        } else {
-            $length = $config['keyword.length'];
-            if ($length <=1 ) $length=20; 
-
-            // we create a keyword list using the page tags and categories
-            if (array_key_exists( 'category', $this->grav['page']->taxonomy() )) { $categories = $this->grav['page']->taxonomy()['category']; } else { $categories = []; }
-            if (array_key_exists( 'tag', $this->grav['page']->taxonomy() )) { $tags = $this->grav['page']->taxonomy()['tag']; } else { $tags = []; }
-
-            $content = array_merge ($categories, $tags) ;
-            $content = array_unique ($content);
-            $content = array_slice($content, 0, $length);
-            $content = join(',',$content);
-            $content = $this->cleanString($content);
-            $pageMetadataContent = $content;
-        }
-        if (!empty($pageMetadataContent)) {
-            $meta['keyword'] = [ 'property' => 'keyword', 'content' => $pageMetadataContent];
-        }
-        return $meta;
-    }
-
     // PROCESS for the twitter metadata
-    private function getTwitterCardMetatags ($meta, $config, $cleanSummary, $cleanTitle) {
-        $page = $this->grav['page'];
+    private function getMetaTwitter ($meta, $metaSite, $config, $cleanContent, $cleanTitle) {
+        $page = $this->grav['page'];   
+
         if (!isset($meta['twitter:card'])) {
             $meta['twitter:card']['name']      = 'twitter:card';
             $meta['twitter:card']['property']  = 'twitter:card';
-            //$meta['twitter:card']['content']   = $this->grav['config']->get('plugins.social-meta-tags.social_pages.pages.twitter.type');
-            //$meta['twitter:card']['content']  = 'summary';
             $meta['twitter:card']['content']  = 'summary_large_image';
         }
 
@@ -132,7 +164,13 @@ class AutoSeoPlugin extends Plugin
         if (!isset($meta['twitter:description'])) {
             $meta['twitter:description']['name']     = 'twitter:description';
             $meta['twitter:description']['property'] = 'twitter:description';
-            $meta['twitter:description']['content']  = substr($cleanSummary,0,140);
+            if (empty($cleanContent)) 
+                $cleanContent = $meta['description']['content'];
+            else {
+                if (array_key_exists('description', $metaSite)) { $metaSiteContent =  htmlspecialchars($metaSite['description'], ENT_QUOTES, 'UTF-8'); } else { $metaSiteContent = ''; }
+                if ($meta['description']['content'] != $metaSiteContent) $cleanContent = $meta['description']['content'];
+            }
+            $meta['twitter:description']['content']  = substr($cleanContent,0,140); 
         }
 
         if (!isset($meta['twitter:image'])) {
@@ -144,70 +182,10 @@ class AutoSeoPlugin extends Plugin
                 $meta['twitter:image']['content']  = $this->grav['uri']->base() . $image->url();
             }
         }
-/*
-        if (!isset($meta['twitter:site'])) {
-            //Use AboutMe plugin configuration
-            if ($this->grav['config']->get('plugins.social-meta-tags.social_pages.pages.twitter.aboutme'))
-            {
-                if ($this->grav['config']->get('plugins.aboutme.social_pages.enabled')
-                     and $this->grav['config']->get('plugins.aboutme.social_pages.pages.twitter.url'))
-                {
-                    $user = preg_replace('((http|https)://twitter.com/)', '@', $this->grav['config']->get('plugins.aboutme.social_pages.pages.twitter.url'));
-                }
-                else
-                {
-                    $user = "";
-                }
-            }
-            //Use plugin self-configuration
-            else
-            {
-                $user = "@".$this->grav['config']->get('plugins.social-meta-tags.social_pages.pages.twitter.username');
-            }
-            //Update data
-            $meta['twitter:site']['name']     = 'twitter:site';
-            $meta['twitter:site']['property'] = 'twitter:site';
-            $meta['twitter:site']['content']  = $user;
-        }
-*/
         return $meta;
     }
 
-    // PROCESS for the facebook metadata
-    private function getFacebookMetatags ( $meta, $config, $cleanSummary, $cleanTitle) {
-        $page = $this->grav['page'];
-        $meta['og:sitename']['name']        = 'og:sitename';
-        $meta['og:sitename']['property']    = 'og:sitename';
-        $meta['og:sitename']['content']     = $this->config->get('site.title');
-        $meta['og:title']['name']           = 'og:title';
-        $meta['og:title']['property']       = 'og:title';
-        $meta['og:title']['content']        = $cleanTitle;
-        $meta['og:description']['name']     = 'og:description';
-        $meta['og:description']['property'] = 'og:description';
-        $meta['og:description']['content']  = $cleanSummary; 
-        $meta['og:type']['name']            = 'og:type';
-        $meta['og:type']['property']        = 'og:type';
-        $meta['og:type']['content']         = 'article';
-        $meta['og:url']['name']             = 'og:url';
-        $meta['og:url']['property']         = 'og:url';
-        $meta['og:url']['content']          = $this->grav['uri']->url(true);
-
-        if (!empty($page->value('media.image'))) {
-            $images = $page->media()->images();
-            $image  = array_shift($images);
-            $meta['og:image']['name']      = 'og:image';
-            $meta['og:image']['property']  = 'og:image';
-            $meta['og:image']['content']   = $this->grav['uri']->base() . $image->url();
-        }
-/*
-        $meta['fb:app_id']['name']         = 'fb:app_id';
-        $meta['fb:app_id']['property']     = 'fb:app_id';
-        $meta['fb:app_id']['content']      = $this->grav['config']->get('plugins.social-meta-tags.social_pages.pages.facebook.appid');
-*/
-        return $meta;
-    }
-    
-    private function sanitizeMarkdowns($text){
+    private function cleanMarkdown($text){
         $rules = array (
             '/(#+)(.*)/'                             => '\2',  // headers
             '/(&lt;|<)!--\n((.*|\n)*)\n--(&gt;|\>)/' => '',    // comments
@@ -238,25 +216,25 @@ class AutoSeoPlugin extends Plugin
         return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
     }
 
-    private function cleanContent ( $page, $config) {
-        $page = $this->grav['page'];
+    private function cleanText ($content, $config) {
         $length = $config['description.length'];       
         if ($length <=1 ) $length=20; 
-        // limit the content size to reduce the performance impact
-        $content = substr(strip_tags($page->content()),0, 1000 );
-        $content = $this->sanitizeMarkdowns($content);
+ 
+        $content = $this->cleanMarkdown($content);
         // truncate the content to the number of words set in config
-        $content = preg_replace('/((\w+\W*){'.$length.'}(\w+))(.*)/', '${1}', $content);    
-        return $content;
+        $contentSmall = preg_replace('/((\w+\W*){'.$length.'}(\w+))(.*)/', '${1}', $content); // beware if content is less than length words, it will be nulled    
+        if ($contentSmall == '' ) $contentSmall = $content;
+ 
+        return $contentSmall;
     }
 
-    private function cleanString ( $str) {
+    private function cleanString ($content) {
         // remove some annoying characters
-        $str = str_replace("&nbsp;",' ',$str);
-        $str = str_replace('"',"'",$str);
-        $str = trim($str);
+        $content = str_replace("&nbsp;",' ',$content);
+        $content = str_replace('"',"'",$content);
+        $content = trim($content);
         // Removes special chars.
-        $str = transliterator_transliterate('Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove', $str);
-        return $str;
+        $content = transliterator_transliterate('Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove', $content);
+        return $content;
     }
 }

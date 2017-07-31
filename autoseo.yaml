@@ -1,10 +1,10 @@
 enabled: true # lets you turn the plugin off and on.
 description:
-  enabled: true # lets you turn the plugin off and on for the description metadata only.
-  length: 30 # maximal count of words that will be used to fill the description metadata.
-keyword:
-  enabled: true # lets you turn the plugin off and on for the keyword metadata only.
-  length: 20 # maximal count of words that will be used to fill the keyword metadata.
+  enabled: true # lets you turn the plugin off and on for the "description" metadata.
+  length: 30 # maximal number of words that will be used to fill the "description" metadata.
+keywords:
+  enabled: true # lets you turn the plugin off and on for the "keywords" metadata.
+  length: 20 # maximal number of words that will be used to fill the "keywords" metadata.
 facebook:
   enabled: true # Lets you turn the plugin ON and OFF for the "Facebook Open Graph" metadata.
 twitter:
