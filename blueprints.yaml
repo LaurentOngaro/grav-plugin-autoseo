@@ -11,6 +11,8 @@ keywords: plugin, seo, metadata extraction, auto fill
 bugs: https://github.com/steamlead/grav-plugin-autoseo/issues
 docs: https://github.com/steamlead/grav-plugin-autoseo/blob/master/README.md
 license: MIT
+dependencies:
+    - { name: admin, version: '>=1.5.0' }
 
 form:
   validation: strict
