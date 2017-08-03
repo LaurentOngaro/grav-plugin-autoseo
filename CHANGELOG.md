@@ -1,3 +1,10 @@
+# v1.3.1
+## 08/03/2017
+
+1. [](#improved)
+    * Add Admin plugin dependency (Dávid Szabó <david.szabo97@gmail.com>)
+    * Use Slug utility function (Dávid Szabó <david.szabo97@gmail.com)
+
 # v1.3.0
 ## 07/31/2017
 
