@@ -78,7 +78,7 @@ class AutoSeoPlugin extends Plugin
 
         if (empty($metaPageContent)) $metaPageContent = $metaSiteContent;
 
-        $meta['description'] = [ 'property' => 'description', 'content' => $metaPageContent];
+        $meta['description'] = [ 'name' => 'description', 'content' => $metaPageContent];
         return $meta;
     }
     
@@ -105,7 +105,7 @@ class AutoSeoPlugin extends Plugin
         $metaPageContent = $content;
         if (empty($metaPageContent)) $metaPageContent = $metaSiteContent;
 
-        $meta['keywords'] = [ 'property' => 'keywords', 'content' => $metaPageContent];
+        $meta['keywords'] = [ 'name' => 'keywords', 'content' => $metaPageContent];
         return $meta;
     }
 

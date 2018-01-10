@@ -1,3 +1,9 @@
+# v1.3.2
+## 08/03/2017
+
+1. [](#bugfix)
+    * The meta tag fields were wrongly named "property" instead of "name".
+    
 # v1.3.1
 ## 08/03/2017
 
