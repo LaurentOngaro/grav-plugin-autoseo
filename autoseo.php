@@ -234,7 +234,7 @@ class AutoSeoPlugin extends Plugin
         $content = str_replace('"',"'",$content);
         $content = trim($content);
         // Removes special chars.
-        $content = \Grav\Plugin\Admin\Utils::slug($content);
+        // $content = \Grav\Plugin\Admin\Utils::slug($content);
         return $content;
     }
 }

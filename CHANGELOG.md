@@ -1,3 +1,9 @@
+# v1.3.3
+## 26/01/2018
+
+1. [](#bugfix)
+    * replace meta title content by page title instead of page slug.
+
 # v1.3.2
 ## 10/01/2018
 
