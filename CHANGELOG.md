@@ -1,11 +1,17 @@
+# v1.3.4
+## 01/26/2017
+
+1. [](#bugfix)
+    * fix release dates in changelog.
+
 # v1.3.3
-## 26/01/2018
+## 01/26/2018
 
 1. [](#bugfix)
     * replace meta title content by page title instead of page slug.
 
 # v1.3.2
-## 10/01/2018
+## 01/10/2018
 
 1. [](#bugfix)
     * The meta tag fields were wrongly named "property" instead of "name".
