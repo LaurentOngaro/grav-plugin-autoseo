@@ -1,5 +1,5 @@
-# v1.3.4
-## 01/26/2017
+# v1.3.5
+## 01/26/2018
 
 1. [](#bugfix)
     * fix release dates in changelog.

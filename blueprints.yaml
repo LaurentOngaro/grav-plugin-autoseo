@@ -1,5 +1,5 @@
 name: Auto SEO
-version: 1.3.4
+version: 1.3.5
 description: Grav AutoSEO is a plugin for Grav with which you can fill automatically the description and keywords metadata of a page using its content. It also adds Facebook Open Graph metadata and Twitter Cards Meta Tags.
 icon: magic
 author:
