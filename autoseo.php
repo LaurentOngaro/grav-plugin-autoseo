@@ -55,7 +55,7 @@ class AutoSeoPlugin extends Plugin
         $metaSite = $this->config->get('site')['metadata'];
         
         // limit the content size to reduce the performance impact
-        $content = substr(strip_tags($page->content()),0, 1000 );
+        $content = mb_substr(strip_tags($page->content()),0, 1000 );
 
         $cleanContent = $this->cleanText ($content, $config); // here because we don't want to make this call several times
         $cleanTitle = $this->cleanString ($page->title()); // here because we don't want to make this call several times
@@ -170,7 +170,7 @@ class AutoSeoPlugin extends Plugin
                 if (array_key_exists('description', $metaSite)) { $metaSiteContent =  htmlspecialchars($metaSite['description'], ENT_QUOTES, 'UTF-8'); } else { $metaSiteContent = ''; }
                 if ($meta['description']['content'] != $metaSiteContent) $cleanContent = $meta['description']['content'];
             }
-            $meta['twitter:description']['content']  = substr($cleanContent,0,140); 
+            $meta['twitter:description']['content']  = mb_substr($cleanContent,0,140); 
         }
 
         if (!isset($meta['twitter:image'])) {
