@@ -222,7 +222,7 @@ class AutoSeoPlugin extends Plugin
  
         $content = $this->cleanMarkdown($content);
         // truncate the content to the number of words set in config
-        $contentSmall = mb_ereg_replace('((\w+\W*){'.$length.'}(\w+))(.*)', '${1}', $content); // beware if content is less than length words, it will be nulled    
+        $contentSmall = mb_ereg_replace('((\w+\W*){'.$length.'}(\w+))(.*)', '\\1', $content); // beware if content is less than length words, it will be nulled    
         if ($contentSmall == '' ) $contentSmall = $content;
  
         return $contentSmall;
